@@ -71,20 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Fallback to mailto if no Formspree ID configured
-            var action = form.getAttribute("action");
-            if (action && action.indexOf("mkopkglp") !== -1) {
-                e.preventDefault();
-                var name = form.querySelector("#name").value;
-                var email = form.querySelector("#email").value;
-                var industry = form.querySelector("#industry").value;
-                var message = form.querySelector("#message").value;
-                var body = "Name: " + name + "\nEmail: " + email +
-                    "\nIndustry: " + industry + "\n\n" + message;
-                window.location.href = "mailto:info@punak.com?subject=" +
-                    encodeURIComponent("Project Inquiry from " + name) +
-                    "&body=" + encodeURIComponent(body);
-            }
+            // Form has Formspree configured — let it submit normally
         });
     }
 });
