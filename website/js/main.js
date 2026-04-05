@@ -52,12 +52,28 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1800);
     }
 
-    // Contact form — fallback to mailto if no Formspree ID configured
+    // Contact form with spam protection
     var form = document.querySelector(".contact-form");
+    var formLoadTime = Date.now();
+
     if (form) {
-        var action = form.getAttribute("action");
-        if (action && action.indexOf("YOUR_FORM_ID") !== -1) {
-            form.addEventListener("submit", function (e) {
+        form.addEventListener("submit", function (e) {
+            // Block if honeypot is filled (bot)
+            var honeypot = form.querySelector("#website");
+            if (honeypot && honeypot.value) {
+                e.preventDefault();
+                return;
+            }
+
+            // Block if submitted in under 3 seconds (bot)
+            if (Date.now() - formLoadTime < 3000) {
+                e.preventDefault();
+                return;
+            }
+
+            // Fallback to mailto if no Formspree ID configured
+            var action = form.getAttribute("action");
+            if (action && action.indexOf("mkopkglp") !== -1) {
                 e.preventDefault();
                 var name = form.querySelector("#name").value;
                 var email = form.querySelector("#email").value;
@@ -65,10 +81,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 var message = form.querySelector("#message").value;
                 var body = "Name: " + name + "\nEmail: " + email +
                     "\nIndustry: " + industry + "\n\n" + message;
-                window.location.href = "mailto:steve@punak.com?subject=" +
+                window.location.href = "mailto:info@punak.com?subject=" +
                     encodeURIComponent("Project Inquiry from " + name) +
                     "&body=" + encodeURIComponent(body);
-            });
-        }
+            }
+        });
     }
 });

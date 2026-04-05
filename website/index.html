@@ -488,7 +488,12 @@
         <h2 class="fade-in">Let's Talk</h2>
         <p class="section-intro fade-in">Have a control display project? Need to put a screen on a device? We'd like to hear about it.</p>
         <div class="contact-layout">
-            <form class="contact-form fade-in" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <form class="contact-form fade-in" action="https://formspree.io/f/mkopkglp" method="POST">
+                <!-- Honeypot — hidden from humans, bots fill it in -->
+                <div class="form-group" style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="_gotcha" tabindex="-1" autocomplete="off">
+                </div>
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" required>
